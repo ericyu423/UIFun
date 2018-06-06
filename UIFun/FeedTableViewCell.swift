@@ -64,6 +64,10 @@ class FeedTabeViewCell:UITableViewCell{
         return imageView
     }()
     
+    //city name can be too long, this can be solve by making
+    //the uilabel width depending on the city, shrink the text
+    //or combination of the time.
+
     lazy var city: UILabel = {
         let label = UILabel()
         label.text = "Tahoe"
@@ -73,6 +77,7 @@ class FeedTabeViewCell:UITableViewCell{
         label.clipsToBounds = true
         label.textAlignment = .center
         label.frame = label.frame.integral
+        label.font = UIFont.systemFont(ofSize: 11)
         return label
     }()
     
@@ -119,7 +124,7 @@ class FeedTabeViewCell:UITableViewCell{
     var address: UILabel = {
         let label = UILabel()
         label.text = "5120 Black Diamond Way"
-        label.font = UIFont.systemFont(ofSize: 17)
+        label.font = UIFont.systemFont(ofSize: 14)
         label.frame = label.frame.integral
         return label
     }()
@@ -150,19 +155,19 @@ class FeedTabeViewCell:UITableViewCell{
     var price: UILabel = {
         let label = UILabel()
         label.text = "$6,200 / mo"
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 11)
         return label
     }()
     var bed: UILabel = {
         let label = UILabel()
         label.text = "8 Bed"
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 11)
         return label
     }()
     var bath: UILabel = {
         let label = UILabel()
         label.text = "3Bath"
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 11)
         return label
     }()
     
