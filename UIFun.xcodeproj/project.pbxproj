@@ -16,6 +16,7 @@
 		D4E501D920C7796700B8A314 /* TestPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E501D820C7796700B8A314 /* TestPost.swift */; };
 		D4E501DB20C77A9A00B8A314 /* ConstraintHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E501DA20C77A9A00B8A314 /* ConstraintHelper.swift */; };
 		D4E501DD20C783FE00B8A314 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E501DC20C783FE00B8A314 /* FeedTableViewCell.swift */; };
+		D4E501E120C7D92F00B8A314 /* README in Resources */ = {isa = PBXBuildFile; fileRef = D4E501E020C7D92F00B8A314 /* README */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		D4E501D820C7796700B8A314 /* TestPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPost.swift; sourceTree = "<group>"; };
 		D4E501DA20C77A9A00B8A314 /* ConstraintHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstraintHelper.swift; sourceTree = "<group>"; };
 		D4E501DC20C783FE00B8A314 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
+		D4E501E020C7D92F00B8A314 /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 		D4E501A320C76CBA00B8A314 = {
 			isa = PBXGroup;
 			children = (
+				D4E501E020C7D92F00B8A314 /* README */,
 				D4E501AE20C76CBA00B8A314 /* UIFun */,
 				D4E501C620C76CBB00B8A314 /* UIFunTests */,
 				D4E501AD20C76CBA00B8A314 /* Products */,
@@ -186,6 +189,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4E501E120C7D92F00B8A314 /* README in Resources */,
 				D4E501BD20C76CBB00B8A314 /* LaunchScreen.storyboard in Resources */,
 				D4E501BA20C76CBB00B8A314 /* Assets.xcassets in Resources */,
 			);

@@ -1,0 +1,7 @@
+problems
+
+1. shadow doesn't work if view have round coners, clip to bound clip off the shadow.
+
+solution: make another view of same size and add shadow to it
+
+

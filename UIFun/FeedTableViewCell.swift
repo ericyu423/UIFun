@@ -18,6 +18,7 @@ class FeedTabeViewCell:UITableViewCell{
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         bottomLayer()
+        layoutLevel1()
         layoutLevel2()
         layoutLevel3()
         topLayer()
@@ -28,14 +29,21 @@ class FeedTabeViewCell:UITableViewCell{
         fatalError("init(coder:) has not been implemented")
     }
     
-  
+    private lazy var shadowViewContainer: UIView = {
+        //and another view
+        var view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 20
+        view.layer.shadowColor = UIColor.gray.cgColor
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowOffset = CGSize.zero
+        view.frame = view.frame.integral
+        return view
+    }()
     
     private lazy var viewContainer: UIView = {
-       
+       //and another view
         var view = UIView()
-        
-        
-        
         view.backgroundColor = .white
         view.layer.cornerRadius = 20
         view.layer.shadowColor = UIColor.gray.cgColor
@@ -49,7 +57,6 @@ class FeedTabeViewCell:UITableViewCell{
     
     var feedImage: UIImageView = {
         let imageView = UIImageView(frame: .zero)
-        imageView.backgroundColor = .red
         imageView.frame = imageView.frame.integral
         
         return imageView
@@ -162,6 +169,10 @@ class FeedTabeViewCell:UITableViewCell{
 
     let leftPadding:CGFloat = 20
     func bottomLayer(){
+        addSubview(shadowViewContainer)
+        shadowViewContainer.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 20, paddingLeft: leftPadding , paddingBottom: 20, paddingRight: 20, width: 0, height: 0)
+    }
+    func layoutLevel1(){
         addSubview(viewContainer)
         viewContainer.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 20, paddingLeft: leftPadding , paddingBottom: 20, paddingRight: 20, width: 0, height: 0)
     }
