@@ -10,6 +10,8 @@ import UIKit
 
 class FeedTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
+   
+    
     let tableRowNumber:Int = 1
     var tableCellHeight:CGFloat {
         return self.view.bounds.width * 5/3.5
@@ -97,9 +99,44 @@ extension FeedTableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FeedTabeViewCell
         
+        
+   
+         var url = feed![indexPath.row].imageURL
+            URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+                
+                if error != nil {
+                    print(error!)
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    cell.feedImage.image = UIImage(data: data!)
+                }
+            }).resume()
+        
+        url = feed![indexPath.row].profileImageURL
+        URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+            
+            if error != nil {
+                print(error!)
+                return
+            }
+            
+            DispatchQueue.main.async {
+                cell.faceImage.image = UIImage(data: data!)
+            }
+        }).resume()
+        
+      
+    
+        
 
         return cell
     }
+    
+
+       
+    
    
 }
 

@@ -43,17 +43,28 @@ class FeedTabeViewCell:UITableViewCell{
         return view
     }()
     
-    private var feedImage: UIImageView = {
+    var feedImage: UIImageView = {
         let imageView = UIImageView(frame: .zero)
         imageView.backgroundColor = .red
         //imageView.clipsToBounds = true
         return imageView
     }()
     
+    var city: UILabel = {
+        let label = UILabel()
+        label.text = "Tahoe"
+        label.textColor = .white
+        label.layer.cornerRadius = 5
+        label.backgroundColor = .gray
+        label.clipsToBounds = true
+        label.textAlignment = .center
+        return label
+    }()
+    
     private var bottomViewContainer: UIView = {
         var view = UIView()
         view.backgroundColor = .green
-        //view.clipsToBounds = true
+
         return view
     }()
     
@@ -61,26 +72,26 @@ class FeedTabeViewCell:UITableViewCell{
     
     private var headContainer: UIView = {
         let view = UIView()
-        view.backgroundColor = .gray
+        view.backgroundColor = .white
         view.clipsToBounds = true
         return view
     }()
     
     private var firstRowContainer: UIView = {
         let view = UIView()
-        view.backgroundColor = .blue
+        view.backgroundColor = .white
         return view
     }()
     private var secondRowContainer: UIView = {
         let view = UIView()
-        view.backgroundColor = .yellow
+        view.backgroundColor = .white
         return view
     }()
     
     //bottomViewContainer subViews
-    private lazy var faceImage: UIImageView = {
+    lazy var faceImage: UIImageView = {
         let imageView = UIImageView(frame: .zero)
-        imageView.backgroundColor = .yellow
+        imageView.backgroundColor = .white
         //(bottomContainerHeight/3) height and width of faceImage
         imageView.layer.cornerRadius = (bottomContainerHeight/2.5)/2
         imageView.clipsToBounds = true
@@ -146,6 +157,9 @@ class FeedTabeViewCell:UITableViewCell{
         viewContainer.addSubview(feedImage)
         viewContainer.addSubview(bottomViewContainer)
         
+        //FeedImage contain a city label subview
+        feedImage.addSubview(city)
+
         //bottomViewContainer consist of 3 main views
         bottomViewContainer.addSubview(headContainer)
         bottomViewContainer.addSubview(firstRowContainer)
@@ -172,6 +186,9 @@ class FeedTabeViewCell:UITableViewCell{
 
         //viewContainer SubViewlayout
         feedImage.anchor(top: viewContainer.topAnchor, left: viewContainer.leftAnchor, bottom: viewContainer.bottomAnchor, right: viewContainer.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: bottomContainerHeight, paddingRight: 0, width: 0, height: 0)
+        
+        city.anchor(top: nil, left: nil, bottom: feedImage.bottomAnchor, right: feedImage.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 10, paddingRight: 30, width: 100, height: 0)
+        
      
         bottomViewContainer.anchor(top: feedImage.bottomAnchor, left: leftAnchor, bottom: viewContainer.bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
