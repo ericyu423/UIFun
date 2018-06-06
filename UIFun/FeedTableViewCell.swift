@@ -16,12 +16,8 @@ class FeedTabeViewCell:UITableViewCell{
  
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-    
-        
         setupViews()
-     
-        
+  
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -46,11 +42,12 @@ class FeedTabeViewCell:UITableViewCell{
     var feedImage: UIImageView = {
         let imageView = UIImageView(frame: .zero)
         imageView.backgroundColor = .red
-        //imageView.clipsToBounds = true
+        imageView.layer.shouldRasterize = true
+        
         return imageView
     }()
     
-    var city: UILabel = {
+    lazy var city: UILabel = {
         let label = UILabel()
         label.text = "Tahoe"
         label.textColor = .white
@@ -58,13 +55,16 @@ class FeedTabeViewCell:UITableViewCell{
         label.backgroundColor = .gray
         label.clipsToBounds = true
         label.textAlignment = .center
+        label.layer.shouldRasterize = true
+        label.frame = label.frame.integral
+   
         return label
     }()
     
     private var bottomViewContainer: UIView = {
         var view = UIView()
         view.backgroundColor = .green
-
+        view.layer.shouldRasterize = true
         return view
     }()
     
@@ -102,6 +102,7 @@ class FeedTabeViewCell:UITableViewCell{
         let label = UILabel()
         label.text = "5120 Black Diamond Way"
         label.font = UIFont.systemFont(ofSize: 20)
+        label.frame = label.frame.integral
         return label
     }()
     
@@ -206,7 +207,7 @@ class FeedTabeViewCell:UITableViewCell{
         faceImage.anchorToCenter(x: headContainer.centerXAnchor, y: headContainer.centerYAnchor, offsetX: 0, offsetY: 0, width: bottomContainerHeight/2.5, height: bottomContainerHeight/2.5)
         
         //firstRowContainer
-        address.anchor(top:firstRowContainer.topAnchor , left: firstRowContainer.leftAnchor, bottom: nil, right: firstRowContainer.rightAnchor, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        address.anchor(top:firstRowContainer.topAnchor , left: firstRowContainer.leftAnchor, bottom: firstRowContainer.bottomAnchor, right: firstRowContainer.rightAnchor, paddingTop: 4, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
         //secondRowContainer
 
