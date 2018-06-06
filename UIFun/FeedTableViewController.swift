@@ -14,7 +14,7 @@ class FeedTableViewController: UIViewController, UITableViewDelegate, UITableVie
     
     let tableRowNumber:Int = 1
     var tableCellHeight:CGFloat {
-        return self.view.bounds.width * 5/3.5
+        return self.view.bounds.width * 468.6/335
         //keep ratio 3.5/5 for different iphone screen
     }
    
@@ -25,12 +25,8 @@ class FeedTableViewController: UIViewController, UITableViewDelegate, UITableVie
         table.rowHeight = tableCellHeight
         table.delegate = self
         table.dataSource = self
+        table.contentInset = UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0) //table start 44 make room for nav bar
         return table
-    }()
-    
-    lazy var navigtionBar: UINavigationBar = {
-        let navigationBar = UINavigationBar()
-        return navigationBar
     }()
 
     var testView: UIView = {
@@ -40,67 +36,84 @@ class FeedTableViewController: UIViewController, UITableViewDelegate, UITableVie
     }()
     
     
-    
-    var feed:[TestPost]?
+    //should be optional in a real app
+    var feed:[TestPost]!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //register table
+        view.backgroundColor = .white
         tableView.register(FeedTabeViewCell.self, forCellReuseIdentifier: "cell")
-       
-        
         feed = TestPost.getTestFeed()
-        setupViews()
-        
+        setupNavigationBarStyle()
+        setupTableViewLayout()
 
     }
- 
+  
     
-    private func setupViews(){
-        view.addSubview(navigtionBar)
-        navigtionBar.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+    private func setupNavigationBarStyle(){
+        self.navigationController?.navigationBar.tintColor = .white
+        
+        self.navigationController?.navigationBar.backgroundColor = .white
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.layer.shadowOpacity = 0.95
+        self.navigationController?.navigationBar.layer.shadowColor = UIColor.white.cgColor
+        self.navigationController?.navigationBar.layer.shadowRadius = 5
+        self.navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0, height: 20)
+        self.navigationController?.navigationBar.layer.masksToBounds =  false
+        
+        //setup image
         
         
-        view.addSubview(tableView)
-        tableView.anchor(top: navigtionBar.topAnchor, left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+    
+        
+        //setup buttons
+        navigationItem.title = ""
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "camera")
+            .withRenderingMode(.alwaysOriginal),style: .plain, target: self,action: #selector(cameraClicked))
+        
+       navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "prof")
+            .withRenderingMode(.alwaysOriginal),style: .plain, target: self,action: #selector(profileClicked))
+    }
+    
+    @objc func cameraClicked(){
+        print("camera clicked")
         
     }
+    @objc func profileClicked(){
+        print("profile clicked")
+        
+    }
+    private func setupTableViewLayout(){
+
+        view.addSubview(tableView)
+        tableView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+    }
+    
+  
 }
 
 // MARK: - Table view data source
 extension FeedTableViewController {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
         return tableRowNumber
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        
         return feed!.count
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
         return tableCellHeight
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //edit row add view here to text
-        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-        
-        print("one of the feed is selected")
- 
-    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FeedTabeViewCell
-        
-        
-   
+
          var url = feed![indexPath.row].imageURL
             URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
                 
@@ -112,6 +125,7 @@ extension FeedTableViewController {
                 DispatchQueue.main.async {
                     cell.feedImage.image = UIImage(data: data!)
                 }
+                
             }).resume()
         
         url = feed![indexPath.row].profileImageURL
@@ -130,10 +144,8 @@ extension FeedTableViewController {
       
         return cell
     }
-    
-
-       
-    
+  
    
 }
+
 

@@ -20,7 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         let rootView = FeedTableViewController()
         window?.rootViewController = rootView
-        self.window!.rootViewController = rootView
+       
+        //self.window!.rootViewController = rootView
+        self.window!.rootViewController =  UINavigationController(rootViewController: rootView)
         self.window?.makeKeyAndVisible()
         
         return true
