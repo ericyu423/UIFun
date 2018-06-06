@@ -116,7 +116,7 @@ class FeedTabeViewCell:UITableViewCell{
         return imageView
     }()
 
-    private var address: UILabel = {
+    var address: UILabel = {
         let label = UILabel()
         label.text = "5120 Black Diamond Way"
         label.font = UIFont.systemFont(ofSize: 17)
@@ -147,19 +147,19 @@ class FeedTabeViewCell:UITableViewCell{
         view.clipsToBounds = true
         return view
     }()
-    private var price: UILabel = {
+    var price: UILabel = {
         let label = UILabel()
         label.text = "$6,200 / mo"
         label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()
-    private var bed: UILabel = {
+    var bed: UILabel = {
         let label = UILabel()
         label.text = "8 Bed"
         label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()
-    private var bath: UILabel = {
+    var bath: UILabel = {
         let label = UILabel()
         label.text = "3Bath"
         label.font = UIFont.systemFont(ofSize: 14)

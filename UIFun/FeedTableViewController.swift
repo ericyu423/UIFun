@@ -113,6 +113,11 @@ extension FeedTableViewController {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FeedTabeViewCell
+        
+        cell.address.text = feed![indexPath.row].addressText
+        cell.city.text = feed![indexPath.row].city
+        cell.bath.text = String(feed![indexPath.row].numberBathrooms)
+        cell.bed.text = String(feed![indexPath.row].numberBedrooms)
 
          var url = feed![indexPath.row].imageURL
             URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
