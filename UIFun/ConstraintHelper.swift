@@ -38,6 +38,24 @@ extension UIView {
         }
     }
     
+    
+    
+    func anchorToCenter(x: NSLayoutXAxisAnchor?, y: NSLayoutYAxisAnchor?,offsetX: CGFloat, offsetY: CGFloat,width: CGFloat, height: CGFloat){
+        translatesAutoresizingMaskIntoConstraints = false
+        if let x = x {
+            self.centerXAnchor.constraint(equalTo: x, constant: offsetX).isActive = true
+        }
+        if let y = y {
+            self.centerYAnchor.constraint(equalTo: y, constant: offsetY).isActive = true
+        }
+        if width != 0 {
+            widthAnchor.constraint(equalToConstant: width).isActive = true
+        }
+        if height != 0 {
+            heightAnchor.constraint(equalToConstant: height).isActive = true
+        }
+    }
+    
 }
 
 

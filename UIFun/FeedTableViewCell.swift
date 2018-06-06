@@ -10,10 +10,17 @@ import UIKit
 
 
 class FeedTabeViewCell:UITableViewCell{
+    
+    let bottomContainerHeight:CGFloat = 80
+  
+ 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+    
+        
         setupViews()
+     
         
     }
     
@@ -55,6 +62,7 @@ class FeedTabeViewCell:UITableViewCell{
     private var headContainer: UIView = {
         let view = UIView()
         view.backgroundColor = .gray
+        view.clipsToBounds = true
         return view
     }()
     
@@ -73,26 +81,40 @@ class FeedTabeViewCell:UITableViewCell{
     private lazy var faceImage: UIImageView = {
         let imageView = UIImageView(frame: .zero)
         imageView.backgroundColor = .yellow
+        //(bottomContainerHeight/3) height and width of faceImage
+        imageView.layer.cornerRadius = (bottomContainerHeight/2.5)/2
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = imageView.bounds.width/2
         return imageView
     }()
 
     private var address: UILabel = {
         let label = UILabel()
+        label.text = "5120 Black Diamond Way"
+        label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
     
+    let indicatorDotRadius:CGFloat = 2
     private lazy var indicatorDot: UIView = {
         var view = UIView()
         view.backgroundColor = .orange
-        view.layer.cornerRadius = view.bounds.width/2
+        view.layer.cornerRadius = 2
         return view
     }()
-    private lazy var seperationDot: UIView = {
+    private lazy var seperationDot1: UIView = {
         var view = UIView()
         view.backgroundColor = .black
-        view.layer.cornerRadius = view.bounds.width/2
+        view.layer.cornerRadius = seperationDotRadius
+        view.clipsToBounds = true
+        return view
+    }()
+    
+    let seperationDotRadius:CGFloat = 1.5
+    private lazy var seperationDot2: UIView = {
+        var view = UIView()
+        view.backgroundColor = .black
+        view.layer.cornerRadius = seperationDotRadius
+        view.clipsToBounds = true
         return view
     }()
     private var price: UILabel = {
@@ -115,6 +137,9 @@ class FeedTabeViewCell:UITableViewCell{
 
    
     func setupViews(){
+        
+        
+        
         addSubview(viewContainer)
         
         //viewContainer consist of two main views
@@ -131,20 +156,17 @@ class FeedTabeViewCell:UITableViewCell{
         
         //firstRowContainer consist of only 1 address
         firstRowContainer.addSubview(address)
-        
-        
-        //Stack view can be use here for the sake of simplicity but it will make it harder to change in the future
+
         
         //secondRowContainer consist of 5 view parts
         secondRowContainer.addSubview(indicatorDot)
         secondRowContainer.addSubview(price)
-        secondRowContainer.addSubview(seperationDot)
+        secondRowContainer.addSubview(seperationDot1)
         secondRowContainer.addSubview(bed)
-        secondRowContainer.addSubview(seperationDot)
+        secondRowContainer.addSubview(seperationDot2)
         secondRowContainer.addSubview(bath)
         
-        let bottomContainerHeight:CGFloat = 60
-        let leftPadding:CGFloat = 20
+         let leftPadding:CGFloat = 20
         
         viewContainer.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 20, paddingLeft: leftPadding , paddingBottom: 20, paddingRight: 20, width: 0, height: 0)
 
@@ -154,14 +176,50 @@ class FeedTabeViewCell:UITableViewCell{
         bottomViewContainer.anchor(top: feedImage.bottomAnchor, left: leftAnchor, bottom: viewContainer.bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
         
-        //bottomViewContainer SubViewLayout
+        //bottomViewContainer Layout Model
         headContainer.anchor(top: bottomViewContainer.topAnchor, left: bottomViewContainer.leftAnchor, bottom: bottomViewContainer.bottomAnchor, right: nil, paddingTop: 0, paddingLeft: leftPadding , paddingBottom: 0, paddingRight: 0, width: bottomContainerHeight, height: 0)
         firstRowContainer.anchor(top: bottomViewContainer.topAnchor, left: headContainer.rightAnchor, bottom: nil, right: bottomViewContainer.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: bottomContainerHeight/2)
         secondRowContainer.anchor(top: firstRowContainer.bottomAnchor, left: headContainer.rightAnchor, bottom: bottomViewContainer.bottomAnchor, right: bottomViewContainer.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
         
+        //bottomViewContainer detail layout
+        //faceImage.anchor(top: headContainer.topAnchor, left: headContainer.leftAnchor, bottom: headContainer.bottomAnchor, right: headContainer.rightAnchor, paddingTop: 10, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, width: 10, height: 10)
         
-  
+        //headContainer
+        faceImage.anchorToCenter(x: headContainer.centerXAnchor, y: headContainer.centerYAnchor, offsetX: 0, offsetY: 0, width: bottomContainerHeight/2.5, height: bottomContainerHeight/2.5)
+        
+        //firstRowContainer
+        address.anchor(top:firstRowContainer.topAnchor , left: firstRowContainer.leftAnchor, bottom: nil, right: firstRowContainer.rightAnchor, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        
+        //secondRowContainer
+
+//        let stackView = UIStackView(arrangedSubviews: [indicatorDot,seperationDot,bed,seperationDotbath])
+//            stackView.axis = .horizontal
+//            stackView.spacing = 2
+//            stackView.distribution = .fillProportionally
+//
+     
+        //center all second rowContainer subviews
+        indicatorDot.centerYAnchor.constraint(equalTo: secondRowContainer.centerYAnchor).isActive = true
+        price.centerYAnchor.constraint(equalTo: secondRowContainer.centerYAnchor).isActive = true
+        seperationDot1.centerYAnchor.constraint(equalTo: secondRowContainer.centerYAnchor).isActive = true
+        bed.centerYAnchor.constraint(equalTo: secondRowContainer.centerYAnchor).isActive = true
+        seperationDot2.centerYAnchor.constraint(equalTo: secondRowContainer.centerYAnchor).isActive = true
+        bath.centerYAnchor.constraint(equalTo: secondRowContainer.centerYAnchor).isActive = true
+        
+       indicatorDot.anchor(top: nil, left: secondRowContainer.leftAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: indicatorDotRadius*2, height: indicatorDotRadius*2)
+       price.anchor(top: nil, left: indicatorDot.rightAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        
+        seperationDot1.anchor(top: nil, left: price.rightAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: seperationDotRadius*2, height: seperationDotRadius*2)
+        bed.anchor(top: nil, left: seperationDot1.rightAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        seperationDot2.anchor(top: nil, left: bed.rightAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: seperationDotRadius*2, height: seperationDotRadius*2)
+        bath.anchor(top: nil, left: seperationDot2.rightAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        
+
+        
+        
     }
+    
+  
     
 }

@@ -20,6 +20,7 @@ class FeedTableViewController: UIViewController, UITableViewDelegate, UITableVie
         let table = UITableView()
         table.separatorStyle = .none
         table.allowsSelection = false
+        table.rowHeight = tableCellHeight
         table.delegate = self
         table.dataSource = self
         return table
@@ -44,13 +45,14 @@ class FeedTableViewController: UIViewController, UITableViewDelegate, UITableVie
         
         //register table
         tableView.register(FeedTabeViewCell.self, forCellReuseIdentifier: "cell")
-        tableView.estimatedRowHeight = 100
+       
         
         feed = TestPost.getTestFeed()
-   
         setupViews()
+        
 
     }
+ 
     
     private func setupViews(){
         view.addSubview(navigtionBar)
@@ -94,9 +96,10 @@ extension FeedTableViewController {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FeedTabeViewCell
+        
 
-       
         return cell
     }
+   
 }
 
