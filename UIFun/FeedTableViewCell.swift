@@ -16,7 +16,11 @@ class FeedTabeViewCell:UITableViewCell{
  
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupViews()
+        
+        bottomLayer()
+        layoutLevel2()
+        layoutLevel3()
+        topLayer()
   
     }
     
@@ -26,8 +30,12 @@ class FeedTabeViewCell:UITableViewCell{
     
   
     
-    private var viewContainer: UIView = {
+    private lazy var viewContainer: UIView = {
+       
         var view = UIView()
+        
+        
+        
         view.backgroundColor = .white
         view.layer.cornerRadius = 20
         view.layer.shadowColor = UIColor.gray.cgColor
@@ -152,86 +160,68 @@ class FeedTabeViewCell:UITableViewCell{
     }()
     
 
-
-   
-    func setupViews(){
-        
-        
-        
+    let leftPadding:CGFloat = 20
+    func bottomLayer(){
         addSubview(viewContainer)
-        
-        //viewContainer consist of two main views
-        viewContainer.addSubview(feedImage)
-        viewContainer.addSubview(bottomViewContainer)
-        
-        //FeedImage contain a city label subview
-        feedImage.addSubview(city)
-
-        //bottomViewContainer consist of 3 main views
-        bottomViewContainer.addSubview(headContainer)
-        bottomViewContainer.addSubview(firstRowContainer)
-        bottomViewContainer.addSubview(secondRowContainer)
-        
-        //headerContainer consist of only 1 faceImage
-        headContainer.addSubview(faceImage)
-        
-        //firstRowContainer consist of only 1 address
-        firstRowContainer.addSubview(address)
-
-        
-        //secondRowContainer consist of 5 view parts
-        secondRowContainer.addSubview(indicatorDot)
-        secondRowContainer.addSubview(price)
-        secondRowContainer.addSubview(seperationDot1)
-        secondRowContainer.addSubview(bed)
-        secondRowContainer.addSubview(seperationDot2)
-        secondRowContainer.addSubview(bath)
-        
-         let leftPadding:CGFloat = 20
-        
         viewContainer.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 20, paddingLeft: leftPadding , paddingBottom: 20, paddingRight: 20, width: 0, height: 0)
-
-        //viewContainer SubViewlayout
+    }
+    
+    func layoutLevel2(){
+        viewContainer.addSubview(feedImage)
         feedImage.anchor(top: viewContainer.topAnchor, left: viewContainer.leftAnchor, bottom: viewContainer.bottomAnchor, right: viewContainer.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: bottomContainerHeight, paddingRight: 0, width: 0, height: 0)
         
-        city.anchor(top: nil, left: nil, bottom: feedImage.bottomAnchor, right: feedImage.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 10, paddingRight: 30, width: 100, height: 0)
-        
-     
+        viewContainer.addSubview(bottomViewContainer)
         bottomViewContainer.anchor(top: feedImage.bottomAnchor, left: leftAnchor, bottom: viewContainer.bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
+    }
+    
+    func layoutLevel3(){
+        feedImage.addSubview(city)
+        city.anchor(top: nil, left: nil, bottom: feedImage.bottomAnchor, right: feedImage.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 10, paddingRight: 30, width: 100, height: 0)
         
-        //bottomViewContainer Layout Model
+        bottomViewContainer.addSubview(headContainer)
         headContainer.anchor(top: bottomViewContainer.topAnchor, left: bottomViewContainer.leftAnchor, bottom: bottomViewContainer.bottomAnchor, right: nil, paddingTop: 0, paddingLeft: leftPadding , paddingBottom: 0, paddingRight: 0, width: bottomContainerHeight, height: 0)
-        firstRowContainer.anchor(top: bottomViewContainer.topAnchor, left: headContainer.rightAnchor, bottom: nil, right: bottomViewContainer.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: bottomContainerHeight/2)
-        secondRowContainer.anchor(top: firstRowContainer.bottomAnchor, left: headContainer.rightAnchor, bottom: bottomViewContainer.bottomAnchor, right: bottomViewContainer.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
-        
-        
-        //headContainer
-        faceImage.anchorToCenter(x: headContainer.centerXAnchor, y: headContainer.centerYAnchor, offsetX: 0, offsetY: 0, width: bottomContainerHeight/2.5, height: bottomContainerHeight/2.5)
-        
-        //firstRowContainer
-        address.anchor(top:firstRowContainer.topAnchor , left: firstRowContainer.leftAnchor, bottom: firstRowContainer.bottomAnchor, right: firstRowContainer.rightAnchor, paddingTop: 4, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
-        
      
-        //center all second rowContainer subviews
-        indicatorDot.centerYAnchor.constraint(equalTo: secondRowContainer.centerYAnchor).isActive = true
-        price.centerYAnchor.constraint(equalTo: secondRowContainer.centerYAnchor).isActive = true
-        seperationDot1.centerYAnchor.constraint(equalTo: secondRowContainer.centerYAnchor).isActive = true
-        bed.centerYAnchor.constraint(equalTo: secondRowContainer.centerYAnchor).isActive = true
-        seperationDot2.centerYAnchor.constraint(equalTo: secondRowContainer.centerYAnchor).isActive = true
-        bath.centerYAnchor.constraint(equalTo: secondRowContainer.centerYAnchor).isActive = true
+        bottomViewContainer.addSubview(firstRowContainer)
+        firstRowContainer.anchor(top: bottomViewContainer.topAnchor, left: headContainer.rightAnchor, bottom: nil, right: bottomViewContainer.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: bottomContainerHeight/2)
         
-       indicatorDot.anchor(top: nil, left: secondRowContainer.leftAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: indicatorDotRadius*2, height: indicatorDotRadius*2)
-       price.anchor(top: nil, left: indicatorDot.rightAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
-        
-        seperationDot1.anchor(top: nil, left: price.rightAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: seperationDotRadius*2, height: seperationDotRadius*2)
-        bed.anchor(top: nil, left: seperationDot1.rightAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
-        seperationDot2.anchor(top: nil, left: bed.rightAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: seperationDotRadius*2, height: seperationDotRadius*2)
-        bath.anchor(top: nil, left: seperationDot2.rightAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
-        
+        bottomViewContainer.addSubview(secondRowContainer)
+        secondRowContainer.anchor(top: firstRowContainer.bottomAnchor, left: headContainer.rightAnchor, bottom: bottomViewContainer.bottomAnchor, right: bottomViewContainer.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
 
+    }
+
+    func topLayer(){
+
+        headContainer.addSubview(faceImage)
+        faceImage.anchorToCenter(x: headContainer.centerXAnchor, y: headContainer.centerYAnchor, offsetX: 0, offsetY: 0, width: bottomContainerHeight/2.5, height: bottomContainerHeight/2.5)
+       
+        firstRowContainer.addSubview(address)
+        address.anchor(top:firstRowContainer.topAnchor , left: firstRowContainer.leftAnchor, bottom: firstRowContainer.bottomAnchor, right: firstRowContainer.rightAnchor, paddingTop: 4, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+ 
+        secondRowContainer.addSubview(indicatorDot)
+        indicatorDot.centerYAnchor.constraint(equalTo: secondRowContainer.centerYAnchor).isActive = true
+        indicatorDot.anchor(top: nil, left: secondRowContainer.leftAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: indicatorDotRadius*2, height: indicatorDotRadius*2)
         
+        secondRowContainer.addSubview(price)
+        price.centerYAnchor.constraint(equalTo: secondRowContainer.centerYAnchor).isActive = true
+        price.anchor(top: nil, left: indicatorDot.rightAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+       
+        secondRowContainer.addSubview(seperationDot1)
+        seperationDot1.centerYAnchor.constraint(equalTo: secondRowContainer.centerYAnchor).isActive = true
+        seperationDot1.anchor(top: nil, left: price.rightAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: seperationDotRadius*2, height: seperationDotRadius*2)
         
+        secondRowContainer.addSubview(bed)
+        bed.centerYAnchor.constraint(equalTo: secondRowContainer.centerYAnchor).isActive = true
+        bed.anchor(top: nil, left: seperationDot1.rightAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        
+        secondRowContainer.addSubview(seperationDot2)
+        seperationDot2.centerYAnchor.constraint(equalTo: secondRowContainer.centerYAnchor).isActive = true
+        seperationDot2.anchor(top: nil, left: bed.rightAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: seperationDotRadius*2, height: seperationDotRadius*2)
+       
+        secondRowContainer.addSubview(bath)
+        bath.centerYAnchor.constraint(equalTo: secondRowContainer.centerYAnchor).isActive = true
+        bath.anchor(top: nil, left: seperationDot2.rightAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+
     }
     
   
