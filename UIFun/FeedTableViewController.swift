@@ -128,9 +128,6 @@ extension FeedTableViewController {
         }).resume()
         
       
-    
-        
-
         return cell
     }
     

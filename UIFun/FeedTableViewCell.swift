@@ -34,15 +34,15 @@ class FeedTabeViewCell:UITableViewCell{
         view.layer.shadowOpacity = 0.5
         view.layer.shadowOffset = CGSize.zero
         view.layer.shadowRadius = 4
-        view.layer.shouldRasterize = true
         view.clipsToBounds = true
+        view.frame = view.frame.integral
         return view
     }()
     
     var feedImage: UIImageView = {
         let imageView = UIImageView(frame: .zero)
         imageView.backgroundColor = .red
-        imageView.layer.shouldRasterize = true
+        imageView.frame = imageView.frame.integral
         
         return imageView
     }()
@@ -55,7 +55,6 @@ class FeedTabeViewCell:UITableViewCell{
         label.backgroundColor = .gray
         label.clipsToBounds = true
         label.textAlignment = .center
-        label.layer.shouldRasterize = true
         label.frame = label.frame.integral
    
         return label
@@ -64,7 +63,7 @@ class FeedTabeViewCell:UITableViewCell{
     private var bottomViewContainer: UIView = {
         var view = UIView()
         view.backgroundColor = .green
-        view.layer.shouldRasterize = true
+        view.frame = view.frame.integral
         return view
     }()
     
@@ -73,18 +72,24 @@ class FeedTabeViewCell:UITableViewCell{
     private var headContainer: UIView = {
         let view = UIView()
         view.backgroundColor = .white
+        
         view.clipsToBounds = true
+        
+        view.frame = view.frame.integral
         return view
     }()
     
     private var firstRowContainer: UIView = {
         let view = UIView()
         view.backgroundColor = .white
+        view.frame = view.frame.integral
+        
         return view
     }()
     private var secondRowContainer: UIView = {
         let view = UIView()
         view.backgroundColor = .white
+        view.frame = view.frame.integral
         return view
     }()
     
@@ -103,6 +108,7 @@ class FeedTabeViewCell:UITableViewCell{
         label.text = "5120 Black Diamond Way"
         label.font = UIFont.systemFont(ofSize: 20)
         label.frame = label.frame.integral
+      
         return label
     }()
     
@@ -200,22 +206,12 @@ class FeedTabeViewCell:UITableViewCell{
         secondRowContainer.anchor(top: firstRowContainer.bottomAnchor, left: headContainer.rightAnchor, bottom: bottomViewContainer.bottomAnchor, right: bottomViewContainer.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
         
-        //bottomViewContainer detail layout
-        //faceImage.anchor(top: headContainer.topAnchor, left: headContainer.leftAnchor, bottom: headContainer.bottomAnchor, right: headContainer.rightAnchor, paddingTop: 10, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, width: 10, height: 10)
-        
         //headContainer
         faceImage.anchorToCenter(x: headContainer.centerXAnchor, y: headContainer.centerYAnchor, offsetX: 0, offsetY: 0, width: bottomContainerHeight/2.5, height: bottomContainerHeight/2.5)
         
         //firstRowContainer
         address.anchor(top:firstRowContainer.topAnchor , left: firstRowContainer.leftAnchor, bottom: firstRowContainer.bottomAnchor, right: firstRowContainer.rightAnchor, paddingTop: 4, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
-        //secondRowContainer
-
-//        let stackView = UIStackView(arrangedSubviews: [indicatorDot,seperationDot,bed,seperationDotbath])
-//            stackView.axis = .horizontal
-//            stackView.spacing = 2
-//            stackView.distribution = .fillProportionally
-//
      
         //center all second rowContainer subviews
         indicatorDot.centerYAnchor.constraint(equalTo: secondRowContainer.centerYAnchor).isActive = true
