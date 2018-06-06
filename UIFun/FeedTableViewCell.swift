@@ -124,7 +124,7 @@ class FeedTabeViewCell:UITableViewCell{
     var address: UILabel = {
         let label = UILabel()
         label.text = "5120 Black Diamond Way"
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 17)
         label.frame = label.frame.integral
         return label
     }()
