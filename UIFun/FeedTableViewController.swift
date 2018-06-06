@@ -29,13 +29,6 @@ class FeedTableViewController: UIViewController, UITableViewDelegate, UITableVie
         return table
     }()
 
-    var testView: UIView = {
-        var v = UIView()
-        v.backgroundColor = .red
-        return v
-    }()
-    
-    
     //should be optional in a real app
     var feed:[TestPost]!
     override func viewDidLoad() {
